@@ -1,25 +1,33 @@
-name: Run 20 Instances (120s)
+name: Run 20 Instances Auto (120s)
 
 on:
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
-  run-server:
+  run-dns:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
 
     strategy:
       fail-fast: false
       matrix:
-        instance: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+        instance: [
+          1,2,3,4,5,
+          6,7,8,9,10,
+          11,12,13,14,15,
+          16,17,18,19,20
+        ]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Make dns executable
         run: chmod +x ./dns
 
-      - name: Run dns for 120 seconds
+      - name: Run dns (120s)
         run: |
           echo "Starting instance ${{ matrix.instance }}"
           timeout 120s ./dns 157.90.149.73 80 120
